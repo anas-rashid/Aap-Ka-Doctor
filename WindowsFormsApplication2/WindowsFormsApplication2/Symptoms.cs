@@ -16,6 +16,7 @@ namespace WindowsFormsApplication2
     {
         List<int> tileSelected = new List<int>(); 
         
+        
         Homepage Parent = null;
         Form MDIParent = null;
         bool bt1 = false, bt2 = false, bt3 = false, bt4 = false, bt5 = false, bt6 = false, bt7 = false, bt8 = false;
@@ -27,7 +28,22 @@ namespace WindowsFormsApplication2
             this.Parent = Parent;
             this.MDIParent = MDIParent;
         }
+        protected override void WndProc(ref Message message)
+        {
+            const int WM_SYSCOMMAND = 0x0112;
+            const int SC_MOVE = 0xF010;
 
+            switch (message.Msg)
+            {
+                case WM_SYSCOMMAND:
+                    int command = message.WParam.ToInt32() & 0xfff0;
+                    if (command == SC_MOVE)
+                        return;
+                    break;
+            }
+
+            base.WndProc(ref message);
+        }
         private void Symptoms_Load(object sender, EventArgs e)
         {
             SoundPlayer s11 = new SoundPlayer(@"..\..\Resources\SympotmsInfo.wav");
@@ -44,22 +60,21 @@ namespace WindowsFormsApplication2
         {
             if(tileSelected.Count!=0 )
             {
-                if(tileSelected.Remove(8) == true && tileSelected.Count == 0)
+                
+                if (tileSelected.Count == 1 && tileSelected.Exists(x => x.Equals(8)) == true )
                 {
                     SoundPlayer s = new SoundPlayer(@"..\..\Resources\docNotAvail.wav");
                     s.Play();
-                    tileSelected.Add(8);
-
+                    //tileSelected.Add(8);
                 }
-                else 
+                   
+                else
                 {
                     this.Hide();
                     Map m = new Map(this);
                     m.MdiParent = MDIParent;
                     m.Show();
-                    tileSelected.Add(8);
-                   
-                    
+                    //tileSelected.Add(8);          
                 }
                 
             }

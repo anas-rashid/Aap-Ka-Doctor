@@ -55,6 +55,7 @@
             // 
             // DatePick
             // 
+            this.DatePick.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.DatePick.Location = new System.Drawing.Point(220, 280);
             this.DatePick.MinimumSize = new System.Drawing.Size(0, 29);
             this.DatePick.Name = "DatePick";
@@ -143,7 +144,6 @@
             this.groupBox1.Size = new System.Drawing.Size(388, 436);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-           // this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // metroTile2
             // 
